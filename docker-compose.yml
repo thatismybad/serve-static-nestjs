@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "30200:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /opt/projects/static-files-test/images:/usr/src/app/files
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: upload-test.mmic.cz
+      LETSENCRYPT_HOST: upload-test.mmic.cz
+      VIRTUAL_PORT: 3000
+    networks:
+      - proxy-net
+
+networks: 
+  proxy-net:
+    external: true
